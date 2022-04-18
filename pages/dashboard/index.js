@@ -138,6 +138,7 @@ const index = () => {
                                             <p className="text-sm font-normal mb-2 text-gray-500">Country</p>
                                             <p className="text-sm font-normal mb-2 text-gray-500">Address</p>
                                             <p className="text-sm font-normal mb-2 text-gray-500">Publications</p>
+                                            <p className="text-sm font-normal mb-2 text-gray-500">About</p>
                                         </div>
 
                                         <div className="grow">
@@ -146,6 +147,7 @@ const index = () => {
                                             <p className="text-sm font-normal mb-2 text-gray-500">: {data.country}</p>
                                             <p className="text-sm font-normal mb-2 text-gray-500">: {data.address}</p>
                                             <p className="text-sm font-normal mb-2 text-gray-500">: {data.publications}</p>
+                                            <p className="text-sm font-normal mb-2 text-gray-500">: {data.about}</p>
                                         </div>
                                     </div>
                                 </div>
