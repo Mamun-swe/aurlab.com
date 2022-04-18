@@ -48,7 +48,7 @@ export const UpdateUsername = async (data) => {
 
 /* Publications */
 export const Publications = async (page, limit) => {
-    return await privateRequest.get(`${BASE_URL}researcher/publication?page=${page}&limit=${limit}`)
+    return await privateRequest.get(`${BASE_URL}/researcher/publication?page=${page}&limit=${limit}`)
 }
 
 /* Publication store */
