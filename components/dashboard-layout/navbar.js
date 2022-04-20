@@ -14,8 +14,8 @@ export const Navbar = (props) => {
                         <Image
                             src={Images.Logo}
                             alt="Logo"
-                            width={150}
-                            height={35}
+                            width={60}
+                            height={40}
                         />
                     </a>
                 </Link>
