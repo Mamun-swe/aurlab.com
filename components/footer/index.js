@@ -35,7 +35,7 @@ export const Footer = () => {
                                 <Mail size={18} className="text-gray-300" />
                             </div>
                             <div className="ml-2">
-                                <p className="text-sm text-gray-600 mb-0">support@researchtop.com</p>
+                                <p className="text-sm text-gray-600 mb-0">support@researchportal.com</p>
                             </div>
                         </div>
 
@@ -90,23 +90,16 @@ export const Footer = () => {
                         <p className="text-md text-gray-700 font-semibold mb-5">My Account</p>
 
                         <div>
-                            <Link href={"/"}>
+                            <Link href={"/dashboard"}>
                                 <a>
                                     <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">Dashboard</p>
                                 </a>
                             </Link>
                         </div>
                         <div>
-                            <Link href={"/"}>
+                            <Link href={"/dashboard/publication"}>
                                 <a>
-                                    <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">Account Details</p>
-                                </a>
-                            </Link>
-                        </div>
-                        <div>
-                            <Link href={"/"}>
-                                <a>
-                                    <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">Change Password</p>
+                                    <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">Publications</p>
                                 </a>
                             </Link>
                         </div>
