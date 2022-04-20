@@ -53,12 +53,11 @@ const index = () => {
             const response = await ResearcherPublications(username, page, perPage)
             if (response.status === 200 && response.data.data.length > 0) {
                 console.log(response.data.data);
-                // setPublication({ isLoading: false, data: response.data.data })
-                setPublication(exPublication => ({ ...exPublication, data: response.data.data, isLoading: false }))
+                setPublication({ isLoading: false, data: response.data.data })
                 setTotalRows(response.data.pagination?.response.data.pagination.total_items)
             }
             // setPublication({ ...publication, isLoading: false })
-            setPublication(exPublication => ({ ...exPublication, isLoading: false }))
+            // setPublication(exPublication => ({ ...exPublication, isLoading: false }))
         } catch (error) {
             if (error) {
                 setPublication({ ...publication, isLoading: false })
@@ -116,12 +115,11 @@ const index = () => {
                 {!isLoading && !serverError && !data ? <NoContent message="No content available." /> : null}
                 {!isLoading && serverError && !data ? <NetworkError /> : null}
 
+                {!isLoading && !serverError && data ?
+                    <div className="grid grid-cols-1">
+                        <div className="lg:flex">
 
-                <div className="grid grid-cols-1">
-                    <div className="lg:flex">
-
-                        {/* Profile information */}
-                        {!isLoading && !serverError && data ?
+                            {/* Profile information */}
                             <div className="w-full lg:w-[350px] mb-10 lg:mb-0 lg:pr-5">
                                 <div className="text-center lg:text-left mb-4">
                                     <Image
@@ -215,24 +213,23 @@ const index = () => {
                                     </div>
                                 </div>
                             </div>
-                            : null
-                        }
 
-                        {/* Publications list */}
-                        <div className="grow p-5">
-                            <DataTable
-                                data={publication.data}
-                                columns={columns}
-                                loading={publication.isLoading}
-                                totalRows={totalRows}
-                                handlePerRowsChange={handlePerRowsChange}
-                                handlePageChange={handlePageChange}
-                                noDataMessage="Publications not available."
-                            />
+                            {/* Publications list */}
+                            <div className="grow p-5">
+                                <DataTable
+                                    data={publication.data}
+                                    columns={columns}
+                                    loading={publication.isLoading}
+                                    totalRows={totalRows}
+                                    handlePerRowsChange={handlePerRowsChange}
+                                    handlePageChange={handlePageChange}
+                                    noDataMessage="Publications not available."
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                    : null
+                }
 
             </div>
 
