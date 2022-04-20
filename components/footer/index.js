@@ -13,10 +13,10 @@ export const Footer = () => {
                     {/* About */}
                     <div>
                         <Image
-                            src={Images.Logo}
+                            src={Images.LogoLg}
                             alt="Agency logo"
-                            width={140}
-                            height={35}
+                            width={250}
+                            height={40}
                         />
 
                         <p className="text-sm text-gray-600 mb-0 mt-4">

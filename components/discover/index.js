@@ -9,16 +9,16 @@ export const Discover = () => {
 
     const responsiveImage = () => {
         let width = 250
-        let height = 220
+        let height = 170
 
         if (window.width >= 640) {
             width = 280
-            height = 250
+            height = 200
         }
 
         if (window.width >= 768) {
             width = 400
-            height = 350
+            height = 250
         }
 
         return { width, height }

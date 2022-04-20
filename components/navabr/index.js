@@ -41,8 +41,8 @@ export const Navbar = (props) => {
                                 <Image
                                     src={Images.Logo}
                                     alt="Logo"
-                                    width={140}
-                                    height={35}
+                                    width={60}
+                                    height={40}
                                 />
                             </a>
                         </Link>
@@ -50,7 +50,7 @@ export const Navbar = (props) => {
 
                     {/* Page links */}
                     <div className="grow hidden lg:block">
-                        <div className="flex justify-end">
+                        <div className="flex justify-end pt-[6px]">
                             <div className="mr-2">
                                 <Link href="/">
                                     <a>
@@ -90,7 +90,7 @@ export const Navbar = (props) => {
 
                     {/* Action buttons */}
                     <div className="ml-auto">
-                        <div className="flex">
+                        <div className="flex pt-[6px]">
 
                             {!user ?
                                 <div>

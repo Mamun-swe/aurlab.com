@@ -9,16 +9,11 @@ export const Read = () => {
 
     const responsiveImage = () => {
         let width = 250
-        let height = 220
-
-        if (window.width >= 640) {
-            width = 280
-            height = 250
-        }
+        let height = 200
 
         if (window.width >= 768) {
-            width = 350
-            height = 320
+            width = 380
+            height = 280
         }
 
         return { width, height }
