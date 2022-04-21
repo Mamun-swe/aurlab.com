@@ -1,6 +1,5 @@
 import Head from "next/head"
 import Image from "next/image"
-import { useRouter } from "next/router"
 import { useEffect, useState, useCallback } from "react"
 import { Images } from "../../utils/images"
 import { Text } from "../../components/text"
@@ -8,96 +7,93 @@ import { Navbar } from "../../components/navabr"
 import { Footer } from "../../components/footer"
 import { WorkCard } from "../../components/card/work"
 import { EducationCard } from "../../components/card/education"
+import { SocialCard } from "../../components/card/social"
 import { BookOpen, Flag, MapPin, User } from "react-feather"
 import { DataTable } from "../../components/table"
 import { NoContent } from "../../components/no-content"
-import { NetworkError } from "../../components/network-error"
 import { ResearcherShowPreloader } from "../../components/preloader"
+import { dateTodate } from "../../utils/helper"
 import { ResearcherPublicProfile, ResearcherPublications } from "../../pages/api"
 
-const index = () => {
-    const router = useRouter()
-    const { username } = router.query
-    const [data, setData] = useState()
+const index = ({ userName, user }) => {
+    const [show, setShow] = useState(false)
     const [isLoading, setLoading] = useState(true)
-    const [serverError, setServerError] = useState(false)
 
-    const [perPage, setPerPage] = useState(20)
+    const [perPage, setPerPage] = useState(10)
     const [totalRows, setTotalRows] = useState(0)
-    const [publication, setPublication] = useState({ isLoading: true, data: [] })
-
-    /* fetch data */
-    const fetchData = useCallback(async () => {
-        try {
-            const response = await ResearcherPublicProfile(username)
-            if (response && response.status === 200) {
-                setData(response.data.data)
-                setLoading(false)
-            } else {
-                setLoading(false)
-                setServerError(true)
-            }
-        } catch (error) {
-            if (error) {
-                setLoading(false)
-                setServerError(true)
-                console.log(error.response)
-            }
-        }
-    }, [username])
+    const [publications, setPublications] = useState([])
+    const [publicationLoading, setPublicationLoading] = useState(true)
 
     /* fetch publication */
-    const fetchPublications = useCallback(async (username, page) => {
+    const fetchPublications = useCallback(async (userName, page) => {
         try {
-            setPublication({ ...publication, isLoading: true })
-            const response = await ResearcherPublications(username, page, perPage)
-            if (response.status === 200 && response.data.data.length > 0) {
+            setPublicationLoading(true)
+            const response = await ResearcherPublications(userName, page, perPage)
+            if (response.status === 200) {
                 console.log(response.data.data);
-                setPublication({ isLoading: false, data: response.data.data })
-                setTotalRows(response.data.pagination?.response.data.pagination.total_items)
+                setPublications(response.data.data)
+                setTotalRows(response.data.pagination ? response.data.pagination.total_items : 10)
             }
-            // setPublication({ ...publication, isLoading: false })
-            // setPublication(exPublication => ({ ...exPublication, isLoading: false }))
+            setPublicationLoading(false)
         } catch (error) {
             if (error) {
-                setPublication({ ...publication, isLoading: false })
                 console.log(error.response)
+                setPublicationLoading(false)
             }
         }
-    }, [username, perPage])
+    }, [userName, perPage])
 
     useEffect(() => {
-        fetchData()
-    }, [username, fetchData])
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }, [user])
 
     useEffect(() => {
-        if (username) fetchPublications(username, 1)
-    }, [username, fetchPublications])
+        if (userName && user) fetchPublications(userName, 1)
+    }, [userName, fetchPublications])
 
     // handle paginate page change
-    const handlePageChange = page => fetchPublications(username, page)
+    const handlePageChange = page => fetchPublications(userName, page)
 
     // handle paginate row change
     const handlePerRowsChange = async (newPerPage, page) => {
-        setPublication({ ...publication, isLoading: true })
-        const response = await ResearcherPublications(username, page, newPerPage)
-        setPublication({ isLoading: false, data: response.data.data })
+        setPublicationLoading(true)
+        const response = await ResearcherPublications(userName, page, newPerPage)
+        setPublicationLoading(false)
+        setPublications(response.data.data)
         setPerPage(newPerPage)
     }
 
     // data columns
     const columns = [
         {
-            name: "Date",
+            name: "Published date",
             sortable: true,
-            selector: row => row.publicationDate || "N/A"
+            selector: row => row.publicationDate ? dateTodate(row.publicationDate) : "N/A"
+        },
+        {
+            name: "Category",
+            sortable: true,
+            selector: row => row?.category?.title
         },
         {
             name: "Title",
             sortable: true,
             selector: row => row.title
+        },
+        {
+            name: "Details",
+            width: "120px",
+            cell: row =>
+                <button
+                    type="button"
+                    className="w-full text-xs rounded-md transition-all py-2 text-gray-400 bg-gray-100 hover:text-black hover:bg-gray-200"
+                    onClick={() => console.log(row)}
+                >Show details</button>
         }
     ]
+
 
     return (
         <div>
@@ -111,57 +107,67 @@ const index = () => {
 
             <div className="container mx-auto mt-[74px] py-[30px]">
 
-                {isLoading && !serverError && !data ? <ResearcherShowPreloader /> : null}
-                {!isLoading && !serverError && !data ? <NoContent message="No content available." /> : null}
-                {!isLoading && serverError && !data ? <NetworkError /> : null}
+                {isLoading ? <ResearcherShowPreloader /> : null}
+                {!isLoading && !user ? <NoContent message="Account not available." /> : null}
 
-                {!isLoading && !serverError && data ?
-                    <div className="grid grid-cols-1">
-                        <div className="lg:flex">
+                <div className="grid grid-cols-1">
+                    <div className="lg:flex">
 
-                            {/* Profile information */}
-                            <div className="w-full lg:w-[350px] mb-10 lg:mb-0 lg:pr-5">
+                        {/* Profile information */}
+                        {!isLoading && user ?
+                            <div className="w-full lg:max-w-[350px] mb-10 lg:mb-0 lg:pr-5 overflow-x-hidden">
                                 <div className="text-center lg:text-left mb-4">
                                     <Image
                                         src={Images.Avatar}
                                         alt="avatar"
-                                        width={150}
-                                        height={150}
+                                        width={120}
+                                        height={120}
                                     />
 
-                                    <Text className="text-md font-medium capitalize">{data?.name}</Text>
+                                    <Text className="text-md font-medium capitalize">{user.name}</Text>
                                 </div>
 
                                 <div>
 
                                     {/* About */}
-                                    <Text className="text-sm font-normal text-gray-500 mb-3">{data?.about}</Text>
+                                    <Text className="text-sm font-normal leading-relaxed text-gray-500 mb-3">{user.about}</Text>
 
                                     {/* Address */}
                                     <table className="table-auto mb-4">
                                         <tbody>
-                                            <tr>
-                                                <td className="w-[25px]">
-                                                    <MapPin size={16} />
-                                                </td>
-                                                <td>
-                                                    <Text className="text-sm font-normal text-gray-500">{data?.address}</Text>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="w-[25px]">
-                                                    <Flag size={16} />
-                                                </td>
-                                                <td>
-                                                    <Text className="text-sm font-normal text-gray-500">{data?.country}</Text>
-                                                </td>
-                                            </tr>
+
+                                            {user?.address ?
+                                                <tr>
+                                                    <td className="w-[25px]">
+                                                        <MapPin size={16} />
+                                                    </td>
+                                                    <td>
+                                                        <Text className="text-sm font-normal text-gray-500">{user.address}</Text>
+                                                    </td>
+                                                </tr>
+                                                : null
+                                            }
+
+                                            {user?.country ?
+                                                <tr>
+                                                    <td className="w-[25px]">
+                                                        <Flag size={16} />
+                                                    </td>
+                                                    <td>
+                                                        <Text className="text-sm font-normal !break-all text-gray-500">{user.country}</Text>
+                                                    </td>
+                                                </tr>
+                                                : null
+                                            }
+
                                             <tr>
                                                 <td className="w-[25px]">
                                                     <BookOpen size={16} />
                                                 </td>
                                                 <td>
-                                                    <Text className="text-sm font-normal text-gray-500">{data?.publications} publications</Text>
+                                                    <Text className="text-sm font-normal !break-all text-gray-500">
+                                                        {user?.publications ? user.publications + " publications" : "Publication not available."}
+                                                    </Text>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -169,74 +175,119 @@ const index = () => {
                                                     <User size={16} />
                                                 </td>
                                                 <td>
-                                                    <Text className="text-sm font-normal text-gray-500">
-                                                        www.researchtop/researcher/{data?.username}
+                                                    <Text className="text-sm !break-all font-normal text-gray-500">
+                                                        www.researchtop/researcher/{user?.username}
                                                     </Text>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
 
-                                    {/* Work experience */}
-                                    {data && data.work && data.work.length > 0 ?
-                                        <div className="mb-4">
-                                            <Text className="text-sm font-medium mb-3">Work experience</Text>
+                                    <div className={show ? "" : "hidden"}>
 
-                                            {data.work.map((item, i) =>
-                                                <WorkCard
-                                                    key={i}
-                                                    data={item}
-                                                />
-                                            )}
-                                        </div>
-                                        : null
-                                    }
+                                        {/* Work experience */}
+                                        {user.work && user.work.length > 0 ?
+                                            <div className="mb-5">
+                                                <Text className="text-sm font-medium mb-3">Work experience</Text>
 
-                                    {/* Education */}
-                                    {data && data.education && data.education.length > 0 ?
-                                        <div>
-                                            <Text className="text-sm font-medium mb-3">Education</Text>
+                                                {user.work.map((item, i) =>
+                                                    <WorkCard
+                                                        key={i}
+                                                        data={item}
+                                                    />
+                                                )}
+                                            </div>
+                                            : null
+                                        }
 
-                                            {data.education.map((item, i) =>
-                                                <EducationCard
-                                                    key={i}
-                                                    data={item}
-                                                />
-                                            )}
-                                        </div>
-                                        : null
-                                    }
+                                        {/* Education */}
+                                        {user.education && user.education.length > 0 ?
+                                            <div className="mb-5">
+                                                <Text className="text-sm font-medium mb-3">Education</Text>
 
-                                    {/* Other profiles */}
-                                    <div>
-                                        <Text className="text-sm font-medium mb-3">Other profiles</Text>
+                                                {user.education.map((item, i) =>
+                                                    <EducationCard
+                                                        key={i}
+                                                        data={item}
+                                                    />
+                                                )}
+                                            </div>
+                                            : null
+                                        }
+
+                                        {/* Other profiles */}
+                                        {user.otherProfiles && user.otherProfiles.length > 0 ?
+                                            <div>
+                                                <Text className="text-sm font-medium mb-3">Other profiles</Text>
+
+                                                {user.otherProfiles.map((item, i) =>
+                                                    <SocialCard
+                                                        key={i}
+                                                        data={item}
+                                                    />
+                                                )}
+                                            </div>
+                                            : null
+                                        }
+                                    </div>
+
+                                    {/* Show more button */}
+                                    <div className="mt-2">
+                                        <button
+                                            type="button"
+                                            className="w-full p-1 text-center border rounded-md text-xs text-gray-400 transition-all hover:text-gray-500"
+                                            onClick={() => setShow(!show)}
+                                        >
+                                            {show ? "Show less" : "Show more"}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
+                            : null
+                        }
 
-                            {/* Publications list */}
+                        {/* Publications list */}
+                        {!isLoading && user ?
                             <div className="grow p-5">
                                 <DataTable
-                                    data={publication.data}
+                                    data={publications}
                                     columns={columns}
-                                    loading={publication.isLoading}
+                                    loading={publicationLoading}
                                     totalRows={totalRows}
                                     handlePerRowsChange={handlePerRowsChange}
                                     handlePageChange={handlePageChange}
                                     noDataMessage="Publications not available."
                                 />
                             </div>
-                        </div>
+                            : null
+                        }
                     </div>
-                    : null
-                }
+                </div>
 
             </div>
-
-
             <Footer />
         </div>
     );
 };
+
+export async function getServerSideProps(context) {
+    const { params } = context
+    const userName = params.username
+    const response = await ResearcherPublicProfile(userName)
+    if (response && response.status === 200) {
+        return {
+            props: {
+                userName: userName,
+                user: response?.data?.data
+            }
+        }
+    }
+
+    return {
+        props: {
+            user: null
+        }
+    }
+}
 
 export default index;

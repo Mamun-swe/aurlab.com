@@ -20,13 +20,16 @@ export const ResearcherListPreloader = ({ length }) => {
 
 export const ResearcherShowPreloader = () => {
     return (
-        <div className="container mx-auto mt-[74px] py-[30px]">
+        <div className="container mx-auto">
             <div className="grid grid-cols-1">
                 <div className="lg:flex">
                     <div className="w-full lg:w-[350px] mb-10 lg:mb-0 lg:pr-5">
                         <div className="border rounded-lg shadow-md p-5">
                             <div className="w-[120px] h-[120px] bg-slate-200 rounded-full mb-5 mx-auto lg:mx-0" />
                             <div className="w-[200px] h-2 bg-slate-200 rounded col-span-2 mb-4 mx-auto lg:mx-0" />
+                            <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                            <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
+                            <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
                             <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
                             <div className="h-2 bg-slate-200 rounded col-span-2 mb-2" />
                             <div className="h-2 bg-slate-200 rounded col-span-2" />
