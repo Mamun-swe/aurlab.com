@@ -1,5 +1,4 @@
 
-
 import React, { useCallback, useEffect, useState } from "react"
 import { Plus, Settings, Trash2 } from "react-feather"
 import { withAuth } from "../../hook/with-auth"
@@ -93,6 +92,108 @@ const index = () => {
             }
 
             setChangeUsername(false)
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Add work */
+    const addWork = async (data) => {
+        try {
+
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Remove work */
+    const removeWork = async (data) => {
+        try {
+
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Add education */
+    const addEducation = async (data) => {
+        try {
+
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Remove education */
+    const removeEducation = async (data) => {
+        try {
+
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Add social */
+    const addSocial = async (data) => {
+        try {
+
+        } catch (error) {
+            if (error) {
+                console.log(error.response)
+                if (error.response && error.response.data && error.response.data && error.response.data.errors) {
+                    const object = error.response.data.errors
+                    for (const item in object) {
+                        Toastify.Error((object[item]))
+                    }
+                }
+            }
+        }
+    }
+
+    /* Remove social */
+    const removeSocial = async (data) => {
+        try {
+
         } catch (error) {
             if (error) {
                 console.log(error.response)

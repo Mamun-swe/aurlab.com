@@ -46,6 +46,37 @@ export const UpdateUsername = async (data) => {
     return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
 }
 
+/* Add work */
+export const AddWork = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+}
+
+/* Remove work */
+export const RemoveWork = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+}
+
+/* Add education */
+export const AddEducation = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+}
+
+/* Remove education */
+export const RemoveEducation = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+}
+
+/* Add social */
+export const AddSocial = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+}
+
+/* Remove social */
+export const RemoveSocial = async (data) => {
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+}
+
+
 /* Publications */
 export const Publications = async (page, limit) => {
     return await privateRequest.get(`${BASE_URL}/researcher/publication?page=${page}&limit=${limit}`)
