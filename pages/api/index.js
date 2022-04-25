@@ -68,14 +68,13 @@ export const RemoveEducation = async (id) => {
 
 /* Add social */
 export const AddSocial = async (data) => {
-    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/add-social`, data)
 }
 
 /* Remove social */
-export const RemoveSocial = async (data) => {
-    return await privateRequest.delete(`${BASE_URL}/researcher/profile/update-username`, data)
+export const RemoveSocial = async (id) => {
+    return await privateRequest.delete(`${BASE_URL}/researcher/profile/remove-social/${id}`)
 }
-
 
 /* Publications */
 export const Publications = async (page, limit) => {

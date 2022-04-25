@@ -41,6 +41,7 @@ const index = () => {
     const [education, setEducation] = useState({ show: false, loading: false })
     const [deleteEducation, setDeleteEducation] = useState({ id: null, show: false, loading: false })
     const [social, setSocial] = useState({ show: false, loading: false })
+    const [deleteSocial, setDeleteSocial] = useState({ id: null, show: false, loading: false })
 
     /* fetch data */
     const fetchData = useCallback(async () => {
@@ -82,6 +83,8 @@ const index = () => {
         } catch (error) {
             if (error) {
                 console.log(error.response)
+
+                setProfileUpdating(false)
                 if (error.response && error.response.data && error.response.data && error.response.data.errors) {
                     const object = error.response.data.errors
                     for (const item in object) {
@@ -108,6 +111,8 @@ const index = () => {
         } catch (error) {
             if (error) {
                 console.log(error.response)
+
+                setChangeUsername(false)
                 if (error.response && error.response.data && error.response.data && error.response.data.errors) {
                     const object = error.response.data.errors
                     for (const item in object) {
@@ -131,6 +136,8 @@ const index = () => {
         } catch (error) {
             if (error) {
                 console.log(error.response)
+
+                setWork({ loading: false })
                 if (error.response && error.response.data && error.response.data && error.response.data.errors) {
                     const object = error.response.data.errors
                     for (const item in object) {
@@ -177,6 +184,8 @@ const index = () => {
         } catch (error) {
             if (error) {
                 console.log(error.response)
+
+                setEducation({ loading: false })
                 if (error.response && error.response.data && error.response.data && error.response.data.errors) {
                     const object = error.response.data.errors
                     for (const item in object) {
@@ -213,10 +222,17 @@ const index = () => {
     /* Add social */
     const addSocial = async (data) => {
         try {
-
+            setSocial({ ...social, loading: true })
+            const response = await AddSocial(data)
+            if (response && response.status === 201) {
+                fetchData()
+                Toastify.Success(response?.data?.message)
+            }
+            setSocial({ loading: false, show: false })
         } catch (error) {
             if (error) {
                 console.log(error.response)
+                setSocial({ ...social, loading: false})
                 if (error.response && error.response.data && error.response.data && error.response.data.errors) {
                     const object = error.response.data.errors
                     for (const item in object) {
@@ -228,9 +244,15 @@ const index = () => {
     }
 
     /* Remove social */
-    const removeSocial = async (data) => {
+    const removeSocial = async () => {
         try {
-
+            setDeleteSocial({ ...social, loading: true })
+            const response = await RemoveSocial(deleteSocial.id)
+            if (response && response.status === 201) {
+                fetchData()
+                Toastify.Success(response?.data?.message)
+            }
+            setDeleteSocial({ ...social, loading: false, show: false })
         } catch (error) {
             if (error) {
                 console.log(error.response)
@@ -384,6 +406,7 @@ const index = () => {
                                                     <CircleIconButton
                                                         type="button"
                                                         className="!text-red-500"
+                                                        onClick={() => setDeleteSocial({ ...deleteSocial, id: item._id, show: true })}
                                                     >
                                                         <Trash2 size={18} />
                                                     </CircleIconButton>
@@ -477,15 +500,24 @@ const index = () => {
             {/* Social profile creation */}
             <Modal
                 show={social.show}
+                title="Create profile"
                 loading={social.loading}
                 onHide={() => setSocial({ ...social, show: false })}
-                title="Create profile"
             >
                 <SocialForm
                     loading={social.loading}
-                    onSubmit={data => console.log(data)}
+                    onSubmit={data => addSocial(data)}
                 />
             </Modal>
+
+            {/* Remove social */}
+            <ConfirmationModal
+                message="social profile"
+                show={deleteSocial.show}
+                loading={deleteSocial.loading}
+                onHide={() => setDeleteSocial({ ...deleteSocial, loading: false, show: false })}
+                onDelete={() => removeSocial()}
+            />
         </div>
     );
 };
