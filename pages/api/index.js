@@ -48,22 +48,22 @@ export const UpdateUsername = async (data) => {
 
 /* Add work */
 export const AddWork = async (data) => {
-    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/add-work`, data)
 }
 
 /* Remove work */
-export const RemoveWork = async (data) => {
-    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+export const RemoveWork = async (id) => {
+    return await privateRequest.delete(`${BASE_URL}/researcher/profile/remove-work/${id}`)
 }
 
 /* Add education */
 export const AddEducation = async (data) => {
-    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+    return await privateRequest.put(`${BASE_URL}/researcher/profile/add-education`, data)
 }
 
 /* Remove education */
-export const RemoveEducation = async (data) => {
-    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+export const RemoveEducation = async (id) => {
+    return await privateRequest.delete(`${BASE_URL}/researcher/profile/remove-education/${id}`)
 }
 
 /* Add social */
@@ -73,7 +73,7 @@ export const AddSocial = async (data) => {
 
 /* Remove social */
 export const RemoveSocial = async (data) => {
-    return await privateRequest.put(`${BASE_URL}/researcher/profile/update-username`, data)
+    return await privateRequest.delete(`${BASE_URL}/researcher/profile/update-username`, data)
 }
 
 

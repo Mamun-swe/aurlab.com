@@ -16,7 +16,18 @@ import { CustomDisclouser } from "../../components/disclosure"
 import { UsernameForm } from "../../components/form/username"
 import { ProfileForm } from "../../components/form/profile"
 import { Toastify } from "../../components/toastify"
-import { Me, UpdateProfileInfo, UpdateUsername } from "../api"
+import { ConfirmationModal } from "../../components/modal/confirmation.modal"
+import {
+    Me,
+    UpdateProfileInfo,
+    UpdateUsername,
+    AddWork,
+    RemoveWork,
+    AddEducation,
+    RemoveEducation,
+    AddSocial,
+    RemoveSocial
+} from "../api"
 
 const index = () => {
     const [data, setData] = useState(null)
@@ -26,7 +37,9 @@ const index = () => {
     const [isProfileUpdating, setProfileUpdating] = useState(false)
     const [changeUsername, setChangeUsername] = useState(false)
     const [work, setWork] = useState({ show: false, loading: false })
+    const [deleteWork, setDeleteWork] = useState({ id: null, show: false, loading: false })
     const [education, setEducation] = useState({ show: false, loading: false })
+    const [deleteEducation, setDeleteEducation] = useState({ id: null, show: false, loading: false })
     const [social, setSocial] = useState({ show: false, loading: false })
 
     /* fetch data */
@@ -108,7 +121,13 @@ const index = () => {
     /* Add work */
     const addWork = async (data) => {
         try {
-
+            setWork({ ...work, loading: true })
+            const response = await AddWork(data)
+            if (response && response.status === 201) {
+                fetchData()
+                Toastify.Success(response?.data?.message)
+            }
+            setWork({ loading: false, show: false })
         } catch (error) {
             if (error) {
                 console.log(error.response)
@@ -123,9 +142,15 @@ const index = () => {
     }
 
     /* Remove work */
-    const removeWork = async (data) => {
+    const removeWork = async () => {
         try {
-
+            setDeleteWork({ ...deleteWork, loading: true })
+            const response = await RemoveWork(deleteWork.id)
+            if (response && response.status === 201) {
+                fetchData()
+                Toastify.Success(response?.data?.message)
+            }
+            setDeleteWork({ ...deleteWork, id: data, loading: false, show: false })
         } catch (error) {
             if (error) {
                 console.log(error.response)
@@ -142,7 +167,13 @@ const index = () => {
     /* Add education */
     const addEducation = async (data) => {
         try {
-
+            setEducation({ ...education, loading: true })
+            const response = await AddEducation(data)
+            if (response && response.status === 201) {
+                fetchData()
+                Toastify.Success(response?.data?.message)
+            }
+            setEducation({ loading: false, show: false })
         } catch (error) {
             if (error) {
                 console.log(error.response)
@@ -157,9 +188,15 @@ const index = () => {
     }
 
     /* Remove education */
-    const removeEducation = async (data) => {
+    const removeEducation = async () => {
         try {
-
+            setDeleteEducation({ ...deleteEducation, loading: true })
+            const response = await RemoveEducation(deleteEducation.id)
+            if (response && response.status === 201) {
+                fetchData()
+                Toastify.Success(response?.data?.message)
+            }
+            setDeleteEducation({ ...deleteEducation, id: data, loading: false, show: false })
         } catch (error) {
             if (error) {
                 console.log(error.response)
@@ -233,7 +270,7 @@ const index = () => {
                                 </div>
                                 <div className="p-3">
                                     <div className="flex mb-2">
-                                        <div className="w-[90px] md:w-[100px]">
+                                        <div className="min-w-[100px]">
                                             <p className="text-sm font-normal mb-2 text-gray-500">Username</p>
                                             <p className="text-sm font-normal mb-2 text-gray-500">E-mail</p>
                                             <p className="text-sm font-normal mb-2 text-gray-500">Country</p>
@@ -277,6 +314,7 @@ const index = () => {
                                                     <CircleIconButton
                                                         type="button"
                                                         className="!text-red-500"
+                                                        onClick={() => setDeleteWork({ ...deleteWork, id: item._id, show: true })}
                                                     >
                                                         <Trash2 size={18} />
                                                     </CircleIconButton>
@@ -311,6 +349,7 @@ const index = () => {
                                                     <CircleIconButton
                                                         type="button"
                                                         className="!text-red-500"
+                                                        onClick={() => setDeleteEducation({ ...deleteEducation, id: item._id, show: true })}
                                                     >
                                                         <Trash2 size={18} />
                                                     </CircleIconButton>
@@ -400,22 +439,40 @@ const index = () => {
             >
                 <WorkForm
                     loading={work.loading}
-                    onSubmit={data => console.log(data)}
+                    onSubmit={data => addWork(data)}
                 />
             </Modal>
 
+            {/* Remove work */}
+            <ConfirmationModal
+                message="work"
+                show={deleteWork.show}
+                loading={deleteWork.loading}
+                onHide={() => setDeleteWork({ ...deleteWork, loading: false, show: false })}
+                onDelete={() => removeWork()}
+            />
+
             {/* Education creation */}
             <Modal
+                title="Create education"
                 show={education.show}
                 loading={education.loading}
                 onHide={() => setEducation({ ...education, show: false })}
-                title="Create education"
             >
                 <EducationForm
-                    loading={work.loading}
-                    onSubmit={data => console.log(data)}
+                    loading={education.loading}
+                    onSubmit={data => addEducation(data)}
                 />
             </Modal>
+
+            {/* Remove Education */}
+            <ConfirmationModal
+                message="education"
+                show={deleteEducation.show}
+                loading={deleteEducation.loading}
+                onHide={() => setDeleteEducation({ ...deleteEducation, loading: false, show: false })}
+                onDelete={() => removeEducation()}
+            />
 
             {/* Social profile creation */}
             <Modal

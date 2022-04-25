@@ -29,7 +29,7 @@ export const WorkForm = (props) => {
             {/* Department */}
             <div className="mb-4">
                 <TextField
-                    label="Organization"
+                    label="Department"
                     name="department"
                     control={control}
                     defaultvalue={""}
