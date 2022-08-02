@@ -3,26 +3,28 @@ import Image from "next/image"
 import { useEffect, useState, useCallback } from "react"
 import { Images } from "../../utils/images"
 import { Text } from "../../components/text"
+import { dateTodate } from "../../utils/helper"
 import { Navbar } from "../../components/navabr"
 import { Footer } from "../../components/footer"
-import { WorkCard } from "../../components/card/work"
-import { EducationCard } from "../../components/card/education"
-import { SocialCard } from "../../components/card/social"
-import { BookOpen, Flag, MapPin, User } from "react-feather"
 import { DataTable } from "../../components/table"
+import { WorkCard } from "../../components/card/work"
 import { NoContent } from "../../components/no-content"
+import { SocialCard } from "../../components/card/social"
+import { CircleIconButton } from "../../components/button"
+import { RightDrawer } from "../../components/right-drawer"
+import { BookOpen, Flag, MapPin, User, X } from "react-feather"
+import { EducationCard } from "../../components/card/education"
 import { ResearcherShowPreloader } from "../../components/preloader"
-import { dateTodate } from "../../utils/helper"
 import { ResearcherPublicProfile, ResearcherPublications } from "../../pages/api"
 
 const index = ({ userName, user }) => {
     const [show, setShow] = useState(false)
     const [isLoading, setLoading] = useState(true)
-
     const [perPage, setPerPage] = useState(10)
     const [totalRows, setTotalRows] = useState(0)
     const [publications, setPublications] = useState([])
     const [publicationLoading, setPublicationLoading] = useState(true)
+    const [details, setDetails] = useState({ status: false, data: null })
 
     /* fetch publication */
     const fetchPublications = useCallback(async (userName, page) => {
@@ -30,7 +32,6 @@ const index = ({ userName, user }) => {
             setPublicationLoading(true)
             const response = await ResearcherPublications(userName, page, perPage)
             if (response.status === 200) {
-                console.log(response.data.data);
                 setPublications(response.data.data)
                 setTotalRows(response.data.pagination ? response.data.pagination.total_items : 10)
             }
@@ -70,11 +71,13 @@ const index = ({ userName, user }) => {
         {
             name: "Published date",
             sortable: true,
+            width: "100px",
             selector: row => row.publicationDate ? dateTodate(row.publicationDate) : "N/A"
         },
         {
             name: "Category",
             sortable: true,
+            width: "180px",
             selector: row => row?.category?.title
         },
         {
@@ -89,7 +92,7 @@ const index = ({ userName, user }) => {
                 <button
                     type="button"
                     className="w-full text-xs rounded-md transition-all py-2 text-gray-400 bg-gray-100 hover:text-black hover:bg-gray-200"
-                    onClick={() => console.log(row)}
+                    onClick={() => setDetails({ data: row, status: true })}
                 >Show details</button>
         }
     ]
@@ -115,7 +118,7 @@ const index = ({ userName, user }) => {
 
                         {/* Profile information */}
                         {!isLoading && user ?
-                            <div className="w-full lg:max-w-[350px] mb-10 lg:mb-0 lg:pr-5 overflow-x-hidden">
+                            <div className="w-full lg:min-w-[350px] mb-10 lg:mb-0 lg:pr-5 overflow-x-hidden">
                                 <div className="text-center lg:text-left mb-4">
                                     <Image
                                         src={Images.Avatar}
@@ -265,6 +268,107 @@ const index = ({ userName, user }) => {
                 </div>
 
             </div>
+
+            {/* Publication details drawer*/}
+            <RightDrawer
+                show={details.status}
+                onClick={() => setDetails({ data: null, status: false })}
+            >
+                <div className="flex justify-between p-4 border-b">
+                    <p className="text-lg font-bold text-indigo-500 mt-1">{details.data && details.data.title}</p>
+                    <div>
+                        <CircleIconButton
+                            type="button"
+                            onClick={() => setDetails({ data: null, status: false })}
+                        >
+                            <X size={20} />
+                        </CircleIconButton>
+                    </div>
+                </div>
+                <div className="p-4">
+
+                    {details.status && details.data ?
+                        <>
+                            {/* Category */}
+                            <div className="flex gap-4 mb-5">
+                                <div className="min-w-[95px] text-right">
+                                    <p className="text-xs text-gray-500">Category</p>
+                                </div>
+                                <div className="grow inline-flex">
+                                    {details.data.category && details.data.category.title &&
+                                        <p className="text-xs">{details.data.category.title}</p>
+                                    }
+                                </div>
+                            </div>
+
+                            {/* Authors */}
+                            <div className="flex gap-4 mb-5">
+                                <div className="min-w-[95px] text-right">
+                                    <p className="text-xs text-gray-500">Authors</p>
+                                </div>
+                                <div className="grow inline-flex">
+                                    {details.data.authors && details.data.authors.length > 0 ?
+                                        details.data.authors.map((item, i) =>
+                                            <p className="text-xs mr-1" key={i}>{item}{i + 1 < details.data.authors.length ? "," : ""}</p>
+                                        ) : null
+                                    }
+                                </div>
+                            </div>
+
+                            {/* Publication date */}
+                            <div className="flex gap-4 mb-5">
+                                <div className="min-w-[95px] text-right">
+                                    <p className="text-xs text-gray-500">Publication date</p>
+                                </div>
+                                <div className="grow inline-flex">
+                                    {details.data.publicationDate &&
+                                        <p className="text-xs">{dateTodate(details.data.publicationDate)}</p>
+                                    }
+                                </div>
+                            </div>
+
+                            {/* Publisher */}
+                            <div className="flex gap-4 mb-5">
+                                <div className="min-w-[95px] text-right">
+                                    <p className="text-xs text-gray-500">Publisher</p>
+                                </div>
+                                <div className="grow inline-flex">
+                                    {details.data.publisher &&
+                                        <p className="text-xs">{details.data.publisher}</p>
+                                    }
+                                </div>
+                            </div>
+
+                            {/* Conference */}
+                            <div className="flex gap-4 mb-5">
+                                <div className="min-w-[95px] text-right">
+                                    <p className="text-xs text-gray-500">Conference</p>
+                                </div>
+                                <div className="grow inline-flex">
+                                    {details.data.conference &&
+                                        <p className="text-xs">{details.data.conference}</p>
+                                    }
+                                </div>
+                            </div>
+
+                            {/* Description */}
+                            <div className="flex gap-4 mb-5">
+                                <div className="min-w-[95px] text-right">
+                                    <p className="text-xs text-gray-500">Description</p>
+                                </div>
+                                <div className="grow inline-flex">
+                                    {details.data.description &&
+                                        <p className="text-xs leading-loose">{details.data.description}</p>
+                                    }
+                                </div>
+                            </div>
+                        </>
+                        : null
+                    }
+
+                </div>
+            </RightDrawer>
+
             <Footer />
         </div>
     );

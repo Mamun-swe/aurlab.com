@@ -12,7 +12,7 @@ import { X } from "react-feather"
 export const Modal = (props) => {
     return (
         <Transition.Root show={props.show} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={props.onHide}>
+            <Dialog as="div" className="fixed z-50 inset-0 overflow-y-auto" onClose={props.onHide}>
                 <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}

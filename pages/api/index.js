@@ -8,6 +8,11 @@ export const ResearcherList = async (page, limit) => {
     return await publicRequest.get(`${BASE_URL}/public/researcher?page=${page}&limit=${limit}`)
 }
 
+/* Public researcher search */
+export const ResearcherSearch = async (query) => {
+    return await publicRequest.get(`${BASE_URL}/public/researcher/search/profile?query=${query}`)
+}
+
 /* Public profile */
 export const ResearcherPublicProfile = async (username) => {
     return await publicRequest.get(`${BASE_URL}/public/researcher/${username}`)

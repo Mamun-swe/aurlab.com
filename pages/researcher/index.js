@@ -1,6 +1,7 @@
 import Head from "next/head"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import { useCallback, useEffect, useState } from "react"
 import { Images } from "../../utils/images"
 import { Text } from "../../components/text"
@@ -10,10 +11,13 @@ import { PrimaryButton } from "../../components/button"
 import { NoContent } from "../../components/no-content"
 import { NetworkError } from "../../components/network-error"
 import { ResearcherListPreloader } from "../../components/preloader"
-import { ResearcherList } from "../api"
+import { ResearcherList, ResearcherSearch } from "../api"
 
 const index = () => {
+    const router = useRouter()
+    const { query } = router.query
     const [data, setData] = useState([])
+    const [pagination, setPagination] = useState(null)
     const [isLoading, setLoading] = useState(true)
     const [serverError, setServerError] = useState(false)
 
@@ -21,6 +25,29 @@ const index = () => {
     const fetchData = useCallback(async (page) => {
         try {
             const response = await ResearcherList(page, 20)
+            if (response && response.status === 200) {
+                setData(response.data.data)
+                setPagination(response.data.pagination)
+                setLoading(false)
+
+                console.log(response.data);
+            } else {
+                setLoading(false)
+                setServerError(true)
+            }
+        } catch (error) {
+            if (error) {
+                setLoading(false)
+                setServerError(true)
+                console.log(error.response)
+            }
+        }
+    }, [])
+
+    /* Search data */
+    const searchData = async () => {
+        try {
+            const response = await ResearcherSearch(query)
             if (response && response.status === 200) {
                 setData(response.data.data)
                 setLoading(false)
@@ -35,11 +62,16 @@ const index = () => {
                 console.log(error.response)
             }
         }
-    }, [])
+    }
 
     useEffect(() => {
-        fetchData(1)
-    }, [fetchData])
+        if (query && query !== "undefined") {
+            searchData()
+        } else {
+            fetchData(1)
+        }
+    }, [query, fetchData])
+
 
     return (
         <div>
@@ -57,8 +89,8 @@ const index = () => {
                 </div>
             </div>
 
-            {isLoading && !serverError && !data.length ? <ResearcherListPreloader length={12} /> : null}
-            {!isLoading && !serverError && !data.length ? <NoContent message="No data available." /> : null}
+            {isLoading && !serverError && !data.length ? <ResearcherListPreloader length={10} /> : null}
+            {!isLoading && !serverError && !data.length ? <NoContent message="No results found." /> : null}
             {!isLoading && serverError && !data.length ? <NetworkError /> : null}
 
             {!isLoading && !serverError && data.length > 0 ?
@@ -87,7 +119,7 @@ const index = () => {
                 : null
             }
 
-            {!isLoading && data.length > 0 ?
+            {!isLoading && data.length > 0 && !query && pagination && pagination.next_page ?
                 <div className="container mx-auto">
                     <div className="grid grid-cols-1 text-center pb-12">
                         <div>
