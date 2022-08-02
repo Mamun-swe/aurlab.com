@@ -8,7 +8,7 @@ export const Footer = () => {
     return (
         <div className="border-t px-3 md:px-0">
             <div className="container mx-auto py-[40px]">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 text-center lg:text-left">
 
                     {/* About */}
                     <div>
@@ -19,7 +19,7 @@ export const Footer = () => {
                             height={40}
                         />
 
-                        <p className="text-sm text-gray-600 mb-0 mt-4">
+                        <p className="text-sm text-gray-600 mb-0">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                             molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
                             numquam blanditiis harum quisquam eius sed odit fugiat iusto.
@@ -30,23 +30,13 @@ export const Footer = () => {
                     <div>
                         <p className="text-md text-gray-700 font-semibold mb-5">Contact</p>
 
-                        <div className="flex mb-4">
-                            <div className="shrink-0">
-                                <Mail size={18} className="text-gray-300" />
-                            </div>
-                            <div className="ml-2">
-                                <p className="text-sm text-gray-600 mb-0">support@researchportal.com</p>
-                            </div>
-                        </div>
+                        <p className="text-sm text-gray-600 mb-0 inline-flex">
+                            <Mail size={18} className="text-gray-300 mr-1" />
+                            support@researchportal.com</p>
+                        <br />
 
-                        <div className="flex mb-4">
-                            <div className="shrink-0">
-                                <MapPin size={18} className="text-gray-300" />
-                            </div>
-                            <div className="ml-2">
-                                <p className="text-sm text-gray-600 mb-0">Dhaka, Bangladesh</p>
-                            </div>
-                        </div>
+                        <p className="text-sm text-gray-600 mb-0 inline-flex">
+                            <MapPin size={18} className="text-gray-300 mr-1" />Dhaka, Bangladesh</p>
                     </div>
 
                     {/* Privacy & policy */}

@@ -1,3 +1,4 @@
+import { dateTodate } from "../../utils/helper";
 import { Text } from "../text"
 
 export const EducationCard = (props) => {
@@ -7,7 +8,7 @@ export const EducationCard = (props) => {
                 {props?.data?.school}
             </Text>
             <Text className="text-xs font-normal capitalize text-gray-400">
-                {props?.data?.department} [{props?.data?.passingYear}]
+                {props?.data?.department} [{dateTodate(props?.data?.passingYear)}]
             </Text>
         </div>
     );

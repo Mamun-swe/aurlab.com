@@ -365,7 +365,7 @@ const index = () => {
                                                 <div className="grow">
                                                     <p className="text-sm font-normal capitalize">{item.school}</p>
                                                     <p className="text-sm font-normal mb-1">Department of {item.department}</p>
-                                                    <p className="text-xs font-normal text-gray-500">[{item.passingYear}]</p>
+                                                    <p className="text-xs font-normal text-gray-500">[{dateTodate(item.passingYear)}]</p>
                                                 </div>
                                                 <div>
                                                     <CircleIconButton

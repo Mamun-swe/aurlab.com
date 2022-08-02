@@ -9,7 +9,7 @@ import { Images } from "../../utils/images"
 import { isValidToken } from "../../utils/helper"
 import { PrimaryButton, CircleIconButton } from "../button"
 
-export const Navbar = (props) => {
+export const Navbar = () => {
     const router = useRouter()
     const [show, setShow] = useState(false)
     const [user, setUser] = useState(null)
@@ -90,13 +90,13 @@ export const Navbar = (props) => {
 
                     {/* Action buttons */}
                     <div className="ml-auto">
-                        <div className="flex pt-[6px]">
+                        <div className="flex pt-[6px] lg:pt-[5px]">
 
                             {!user ?
                                 <div>
                                     <Link href="/login">
                                         <a>
-                                            <PrimaryButton>
+                                            <PrimaryButton className="!rounded-full !py-[8px]">
                                                 Login
                                             </PrimaryButton>
                                         </a>
