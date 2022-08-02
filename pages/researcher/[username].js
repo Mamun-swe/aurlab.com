@@ -83,7 +83,7 @@ const index = ({ userName, user }) => {
         {
             name: "Title",
             sortable: true,
-            selector: row => row.title
+            selector: row => row.title && row.title.length > 40 ? row.title.slice(0, 40) + "..." : row.title
         },
         {
             name: "Details",
@@ -118,7 +118,7 @@ const index = ({ userName, user }) => {
 
                         {/* Profile information */}
                         {!isLoading && user ?
-                            <div className="w-full lg:min-w-[350px] mb-10 lg:mb-0 lg:pr-5 overflow-x-hidden">
+                            <div className="w-full lg:!w-[350px] mb-10 lg:mb-0 lg:pr-5 overflow-x-hidden">
                                 <div className="text-center lg:text-left mb-4">
                                     <Image
                                         src={Images.Avatar}

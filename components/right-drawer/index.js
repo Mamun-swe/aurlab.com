@@ -14,8 +14,8 @@ export const RightDrawer = (props) => {
 
             <div className={
                 props.show ?
-                    "fixed top-0 right-0 w-[100%] lg:w-[680px] h-[100vh] shadow-lg bg-white z-[100] transition-all duration-300" :
-                    "fixed top-0 right-[-100%] lg:w-[680px] h-[100vh] shadow-lg bg-white z-[100] transition-all duration-300"
+                    "fixed overflow-y-auto top-0 right-0 w-[100%] lg:w-[680px] h-[100vh] shadow-lg bg-white z-[100] transition-all duration-300" :
+                    "fixed overflow-y-auto top-0 right-[-100%] lg:w-[680px] h-[100vh] shadow-lg bg-white z-[100] transition-all duration-300"
             }
             >
                 {props.children}
