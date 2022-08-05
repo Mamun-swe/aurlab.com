@@ -43,7 +43,7 @@ const Index = () => {
     }
 
     return (
-        <div className="pt-[74px]">
+        <div className="pt-[81px]">
             <Navbar />
 
             <div className="w-full md:w-[550px] lg:w-[650px] mx-auto md:mt-[50px] p-4 mb-10 lg:mb-20">

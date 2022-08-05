@@ -108,7 +108,7 @@ const index = ({ userName, user }) => {
 
             <Navbar user={""} />
 
-            <div className="container mx-auto mt-[74px] py-[30px]">
+            <div className="container mx-auto mt-[81px] py-[30px]">
 
                 {isLoading ? <ResearcherShowPreloader /> : null}
                 {!isLoading && !user ? <NoContent message="Account not available." /> : null}

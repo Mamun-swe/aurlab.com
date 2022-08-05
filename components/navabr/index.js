@@ -30,7 +30,7 @@ export const Navbar = () => {
     }, [])
 
     return (
-        <div className="fixed top-0 left-0 w-full py-4 z-50 bg-white">
+        <div className="fixed top-0 left-0 w-full py-3 z-50 bg-white">
             <div className="container mx-auto">
                 <div className="flex w-full">
 
@@ -41,8 +41,8 @@ export const Navbar = () => {
                                 <Image
                                     src={Images.Logo}
                                     alt="Logo"
-                                    width={60}
-                                    height={40}
+                                    width={50}
+                                    height={50}
                                 />
                             </a>
                         </Link>
@@ -50,7 +50,7 @@ export const Navbar = () => {
 
                     {/* Page links */}
                     <div className="grow hidden lg:block">
-                        <div className="flex justify-end pt-[6px]">
+                        <div className="flex justify-end pt-[11px]">
                             <div className="mr-2">
                                 <Link href="/">
                                     <a>
@@ -90,7 +90,7 @@ export const Navbar = () => {
 
                     {/* Action buttons */}
                     <div className="ml-auto">
-                        <div className="flex pt-[6px] lg:pt-[5px]">
+                        <div className="flex pt-[10px]">
 
                             {!user ?
                                 <div>

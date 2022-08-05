@@ -9,7 +9,8 @@ module.exports = {
         '3xl': '1740px',
       },
       colors: {
-        'primary': '#0ea5e9'
+        'primary': '#581c87',
+        'secondary': '#7e22ce'
       }
     },
   },

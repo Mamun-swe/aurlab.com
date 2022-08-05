@@ -83,7 +83,7 @@ const index = () => {
 
             <Navbar user={""} />
 
-            <div className="container mx-auto mt-[74px]">
+            <div className="container mx-auto mt-[81px]">
                 <div className="grid grid-cols-1 text-center py-8">
                     <Text className="text-xl font-regular text-gray-600">Browse researcher</Text>
                 </div>

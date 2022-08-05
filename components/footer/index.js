@@ -21,8 +21,7 @@ export const Footer = () => {
 
                         <p className="text-sm text-gray-600 mb-0">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                            numquam blanditiis harum quisquam eius sed odit fugiat iusto.
+                            molestiae quas vel sint commodi.
                         </p>
                     </div>
 
