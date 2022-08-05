@@ -9,26 +9,21 @@ export const Header = () => {
 
     const responsiveImage = () => {
         let width = 300
-        let height = 200
+        let height = 250
 
         if (window.width >= 640) {
             width = 360
-            height = 250
+            height = 300
         }
 
         if (window.width >= 768) {
             width = 460
-            height = 320
-        }
-
-        if (window.width >= 1024) {
-            width = 460
-            height = 310
+            height = 380
         }
 
         if (window.width >= 1536) {
             width = 600
-            height = 420
+            height = 480
         }
 
         return { width, height }
