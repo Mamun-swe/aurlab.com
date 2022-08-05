@@ -49,22 +49,6 @@ export const Footer = () => {
                                 </a>
                             </Link>
                         </div>
-
-                        <div>
-                            <Link href={"/"}>
-                                <a>
-                                    <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">Privacy Policy</p>
-                                </a>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <Link href={"/"}>
-                                <a>
-                                    <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">Term Conditions</p>
-                                </a>
-                            </Link>
-                        </div>
                         <div>
                             <Link href={"/"}>
                                 <a>
