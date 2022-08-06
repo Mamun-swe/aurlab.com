@@ -8,13 +8,13 @@ import { Images } from "../../utils/images"
 export const Navbar = (props) => {
     return (
         <div className="flex z-50">
-            <div>
+            <div className="pt-1">
                 <Link href="/">
                     <a>
                         <Image
                             src={Images.Logo}
                             alt="Logo"
-                            width={40}
+                            width={150}
                             height={40}
                         />
                     </a>

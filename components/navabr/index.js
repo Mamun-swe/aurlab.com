@@ -35,7 +35,7 @@ export const Navbar = () => {
                 <div className="flex w-full">
 
                     {/* Logo */}
-                    <div className="flex-none">
+                    <div className="flex-none pt-1">
                         <Link href="/">
                             <a>
                                 <Image
