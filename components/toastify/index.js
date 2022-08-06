@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 toast.configure({
     autoClose: 2000,
     transition: Slide,
-    position: "top-right",
+    position: "top-center",
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
