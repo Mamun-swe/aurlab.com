@@ -9,16 +9,21 @@ export const Publish = () => {
 
     const responsiveImage = () => {
         let width = 250
-        let height = 160
+        let height = 180
 
         if (window.width >= 640) {
             width = 280
-            height = 200
+            height = 220
         }
 
         if (window.width >= 768) {
             width = 350
-            height = 230
+            height = 260
+        }
+
+        if (window.width >= 1480) {
+            width = 550
+            height = 380
         }
 
         return { width, height }
@@ -41,6 +46,11 @@ export const Publish = () => {
                         >Publish to journal</Text>
 
                         <Text className="text-md text-gray-400 font-normal">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+                            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                            optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+                            obcaecati tenetur
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                             molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
                             numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium

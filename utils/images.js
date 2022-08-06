@@ -1,6 +1,5 @@
 
-const Logo = "/static/logo-sm.png"
-const LogoLg = "/static/logo.png"
+const Logo = "/static/logo.png"
 const Time = "/static/time.png"
 const Book = "/static/book.png"
 const Check = "/static/check.png"
@@ -12,7 +11,6 @@ const Avatar = "/static/avatar.png"
 
 export const Images = {
     Logo,
-    LogoLg,
     Time,
     Book,
     Check,

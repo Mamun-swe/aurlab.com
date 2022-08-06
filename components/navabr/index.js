@@ -41,8 +41,8 @@ export const Navbar = () => {
                                 <Image
                                     src={Images.Logo}
                                     alt="Logo"
-                                    width={50}
-                                    height={50}
+                                    width={150}
+                                    height={40}
                                 />
                             </a>
                         </Link>

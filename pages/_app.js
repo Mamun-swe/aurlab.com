@@ -1,9 +1,11 @@
 import '../styles/globals.css'
 import NextNprogress from 'nextjs-progressbar'
+import { MainHead } from '../components/head'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <MainHead />
       <NextNprogress
         color="#581c87"
         startPosition={0.3}

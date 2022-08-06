@@ -13,13 +13,13 @@ export const Footer = () => {
                     {/* About */}
                     <div>
                         <Image
-                            src={Images.LogoLg}
+                            src={Images.Logo}
                             alt="Agency logo"
                             width={250}
-                            height={40}
+                            height={65}
                         />
 
-                        <p className="text-sm text-gray-600 mb-0">
+                        <p className="text-sm text-gray-600 mt-2 mb-0">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                             molestiae quas vel sint commodi.
                         </p>
