@@ -173,7 +173,7 @@ const index = ({ userName, user }) => {
                                                 </td>
                                                 <td>
                                                     <Text className="text-sm !break-all font-normal text-gray-500">
-                                                        www.aurlab.vercel.app/researcher/{user?.username}
+                                                        aurlab.vercel.app/researcher/{user?.username}
                                                     </Text>
                                                 </td>
                                             </tr>
