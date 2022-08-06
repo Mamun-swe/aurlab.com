@@ -17,6 +17,7 @@ export default function Home() {
       <Navbar user={""} />
       <Header />
 
+
       {/* Search */}
       <div className="container mx-auto">
         <div className="grid grid-cols-1">
