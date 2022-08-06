@@ -11,7 +11,7 @@ export const CustomDisclouser = ({ items }) => {
                         <Disclosure key={i}>
                             {({ open }) => (
                                 <>
-                                    <Disclosure.Button className="flex justify-between w-full p-3 text-sm font-medium text-left text-sky-900 bg-sky-100 rounded-lg hover:bg-sky-200 focus:outline-none focus-visible:ring focus-visible:ring-sky-500 focus-visible:ring-opacity-75 mb-2">
+                                    <Disclosure.Button className="flex justify-between w-full p-5 rounded-none text-sm font-medium text-left bg-gray-100 hover:bg-gray-200 mb-[1px]">
                                         <span>{item.title}</span>
                                         <ChevronUp
                                             className={`${open ? 'transform rotate-180' : ''
@@ -27,8 +27,8 @@ export const CustomDisclouser = ({ items }) => {
                                         leaveFrom="transform scale-100 opacity-100"
                                         leaveTo="transform scale-95 opacity-0"
                                     >
-                                        <Disclosure.Panel className="p-3">
-                                            {item.body}
+                                        <Disclosure.Panel className="p-4">
+                                            <p className="leading-loose text-sm">{item.body}</p>
                                         </Disclosure.Panel>
                                     </Transition>
                                 </>

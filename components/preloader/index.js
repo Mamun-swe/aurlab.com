@@ -92,9 +92,9 @@ export const TableLoader = () => {
 export const DashboardPreloader = () => {
     return (
         <div className="w-full relative animate-pulse">
-            <div className="w-full h-[180px] lg:h-[200px] rounded-lg overflow-hidden shadow-md bg-white" />
+            <div className="w-full h-[180px] lg:h-[200px] rounded-lg overflow-hidden shadow-md bg-slate-300" />
 
-            <div className="absolute w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-full -bottom-[40px] sm:-bottom-[60px] shadow-lg right-[10px] sm:right-[40px] overflow-hidden bg-white" />
+            <div className="absolute w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-full -bottom-[40px] sm:-bottom-[60px] shadow-lg right-[10px] sm:right-[40px] overflow-hidden bg-slate-300 border-2" />
         </div>
     )
 }

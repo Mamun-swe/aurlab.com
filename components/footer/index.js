@@ -14,7 +14,7 @@ export const Footer = () => {
                     <div>
                         <Image
                             src={Images.Logo}
-                            alt="Agency logo"
+                            alt="logo"
                             width={250}
                             height={65}
                         />
@@ -31,7 +31,7 @@ export const Footer = () => {
 
                         <p className="text-sm text-gray-600 mb-0 inline-flex">
                             <Mail size={18} className="text-gray-300 mr-1" />
-                            support@researchportal.com</p>
+                            support@aurlab.com</p>
                         <br />
 
                         <p className="text-sm text-gray-600 mb-0 inline-flex">
@@ -43,14 +43,14 @@ export const Footer = () => {
                         <p className="text-md text-gray-700 font-semibold mb-5">Policy & Info</p>
 
                         <div>
-                            <Link href={"/"}>
+                            <Link href={"/about"}>
                                 <a>
                                     <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">About Us</p>
                                 </a>
                             </Link>
                         </div>
                         <div>
-                            <Link href={"/"}>
+                            <Link href={"/faq"}>
                                 <a>
                                     <p className="text-sm transition-all text-gray-600 hover:text-primary mb-2">FAQs</p>
                                 </a>
