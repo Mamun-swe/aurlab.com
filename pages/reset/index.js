@@ -4,9 +4,9 @@ import { useRouter } from "next/router"
 import { Navbar } from "../../components/navabr"
 import { Footer } from "../../components/footer"
 import { Text } from "../../components/text"
-import { LoginForm } from "../../components/form/login"
+import { ResetForm } from "../../components/form/reset"
 import { Toastify } from "../../components/toastify"
-import { Login } from "../api"
+import { Reset } from "../api"
 
 const Index = () => {
     const router = useRouter()
@@ -20,17 +20,16 @@ const Index = () => {
     const handleSubmit = async (data) => {
         try {
             setLoading(true)
-            const response = await Login(data)
-            if (response && response.status === 200) {
-                const token = response.data.token
-                localStorage.setItem("token", token)
-                router.push("/dashboard")
+            const response = await Reset(data)
+            if (response && response.status === 201) {
+                Toastify.Success(response.data.message)
             }
 
             setLoading(false)
         } catch (error) {
             if (error) {
                 setLoading(false)
+                console.log(error)
 
                 if (error.response && error.response.data && error.response.data && error.response.data.errors) {
                     const object = error.response.data.errors
@@ -49,10 +48,10 @@ const Index = () => {
             <div className="w-full md:w-[550px] lg:w-[650px] mx-auto md:mt-[50px] p-4 mb-10 lg:mb-20">
                 <div className="md:border rounded-lg md:shadow-lg">
                     <div className="text-center py-10">
-                        <Text className="text-[20px] font-bold">Sign in to AurLab</Text>
+                        <Text className="text-[20px] font-bold">Change account password</Text>
                     </div>
                     <div className="px-2 pb-10 md:px-16">
-                        <LoginForm
+                        <ResetForm
                             isLoading={isLoading}
                             onSubmit={data => handleSubmit(data)}
                         />

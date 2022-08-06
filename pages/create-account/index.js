@@ -48,7 +48,7 @@ const Index = () => {
             <div className="w-full md:w-[550px] lg:w-[650px] mx-auto md:mt-[50px] p-4 mb-10 lg:mb-20">
                 <div className="md:border rounded-lg md:shadow-lg">
                     <div className="text-center py-10">
-                        <Text className="text-[20px] font-bold">Sign up to ResearchTop</Text>
+                        <Text className="text-[20px] font-bold">Sign up to AurLab</Text>
                     </div>
                     <div className="px-2 pb-10 md:px-16">
                         <RegistrationForm

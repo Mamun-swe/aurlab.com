@@ -66,7 +66,7 @@ export const RegistrationForm = (props) => {
             <div className="text-right mb-4">
                 <Link href="/login">
                     <a>
-                        <Text className="text-sm font-medium text-indigo-400">Go to login.</Text>
+                        <Text className="text-sm font-medium text-indigo-400">Back to login.</Text>
                     </a>
                 </Link>
             </div>

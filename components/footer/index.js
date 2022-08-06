@@ -15,8 +15,8 @@ export const Footer = () => {
                         <Image
                             src={Images.Logo}
                             alt="logo"
-                            width={250}
-                            height={65}
+                            width={150}
+                            height={40}
                         />
 
                         <p className="text-sm text-gray-600 mt-2 mb-0">

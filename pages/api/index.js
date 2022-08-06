@@ -34,6 +34,11 @@ export const Registration = async (data) => {
     return await publicRequest.post(`${BASE_URL}/auth/researcher/register`, data)
 }
 
+/* Reset */
+export const Reset = async (data) => {
+    return await publicRequest.post(`${BASE_URL}/auth/researcher/reset`, data)
+}
+
 /* -------- Private API requests */
 
 /* Me */

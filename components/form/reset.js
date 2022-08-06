@@ -7,14 +7,13 @@ import { PrimaryButton } from "../button"
 import { isValidEmail } from "../../utils/helper"
 import { TextField, PasswordField } from "../input-field"
 
-export const LoginForm = (props) => {
+export const ResetForm = (props) => {
     const { control, handleSubmit, formState: { errors } } = useForm()
 
     const onSubmit = data => props.onSubmit(data)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-
             {/* Email */}
             <div className="mb-4">
                 <TextField
@@ -37,7 +36,7 @@ export const LoginForm = (props) => {
             {/* Password */}
             <div className="mb-4">
                 <PasswordField
-                    label="Password"
+                    label="New password"
                     name="password"
                     control={control}
                     defaultvalue={""}
@@ -48,17 +47,9 @@ export const LoginForm = (props) => {
             </div>
 
             <div className="text-right mb-4">
-                <p className="inline-flex text-sm">
-                    Have no accout?
-                    <Link href="/create-account">
-                        <a>
-                            <Text className="ml-1 text-sm font-medium text-indigo-400">Create account</Text>
-                        </a>
-                    </Link>
-                </p>
-                <Link href="/reset">
+                <Link href="/login">
                     <a>
-                        <Text className="text-sm font-medium text-indigo-400">Forgot password?</Text>
+                        <Text className="text-sm font-medium text-indigo-400">Back to login.</Text>
                     </a>
                 </Link>
             </div>
@@ -69,7 +60,7 @@ export const LoginForm = (props) => {
                     type="submit"
                     disabled={props.isLoading}
                 >
-                    {props.isLoading ? "Loading..." : "Login"}
+                    {props.isLoading ? "Loading..." : "Submit"}
                 </PrimaryButton>
             </div>
         </form>
