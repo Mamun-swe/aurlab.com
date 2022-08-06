@@ -1,4 +1,4 @@
-Open [https://researchportal-xyz.vercel.app](https://researchportal-xyz.vercel.app)
+Open [https://aurlab.vercel.app](https://aurlab.vercel.app)
 
 ![ScreenShot](/public/git-banner.png)
 
