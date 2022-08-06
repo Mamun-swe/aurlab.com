@@ -11,12 +11,10 @@ import { PrimaryButton } from "../components/button"
 import { SearchForm } from "../components/form/search"
 
 export default function Home() {
-
   return (
     <div>
       <Navbar user={""} />
       <Header />
-
 
       {/* Search */}
       <div className="container mx-auto">
