@@ -10,7 +10,7 @@ const Index = () => {
 
       <div className="container mx-auto">
         <div className="grid grid-cols-1 py-8">
-          <Text className="text-xl font-bold mb-4">About AurLab</Text>
+          <Text className="text-xl font-bold mb-4">About SciLab</Text>
           <Text>
             A research lab, also known as a laboratory or research facility, is
             a specialized space where scientists, researchers, and scholars

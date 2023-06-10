@@ -3,11 +3,11 @@ import Head from 'next/head'
 export const MainHead = () => {
     return (
         <Head>
-            <title>AurLab || Biggest online research lab.</title>
+            <title>SciLab || Biggest online research lab.</title>
             <link rel="icon" href="/favicon.ico" />
             <meta name="title" content="aurlab.vercel.app" />
             <meta name="description" content="Connect million researcher to make you eaiser research life." />
-            <meta name="keywords" content="aurlab research researc-lab science IT" />
+            <meta name="keywords" content="SciLab research researc-lab science IT" />
             <meta name="robots" content="index, follow" />
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <meta name="language" content="English" />
