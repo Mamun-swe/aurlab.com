@@ -1,13 +1,12 @@
-
-import Link from "next/link"
-import { Read } from "../components/read"
-import { Navbar } from "../components/navabr"
-import { Header } from "../components/header"
-import { Footer } from "../components/footer"
-import { Publish } from "../components/publish"
-import { Discover } from "../components/discover"
-import { PrimaryButton } from "../components/button"
-import { SearchForm } from "../components/form/search"
+import Link from "next/link";
+import { Read } from "../components/read";
+import { Navbar } from "../components/navabr";
+import { Header } from "../components/header";
+import { Footer } from "../components/footer";
+import { Publish } from "../components/publish";
+import { Discover } from "../components/discover";
+import { PrimaryButton } from "../components/button";
+import { SearchForm } from "../components/form/search";
 
 export default function Home() {
   return (
@@ -18,7 +17,7 @@ export default function Home() {
       {/* Search */}
       <div className="container mx-auto">
         <div className="grid grid-cols-1">
-          <div className="w-full md:w-[550px] lg:w-[650px] mx-auto rounded-full overflow-hidden drop-shadow-xl bg-white border border-gray-100">
+          <div className="w-full md:w-[550px] lg:w-[650px] mx-auto rounded-full drop-shadow-xl bg-white border border-gray-100 z-50">
             <SearchForm />
           </div>
         </div>
@@ -40,5 +39,5 @@ export default function Home() {
 
       <Footer />
     </div>
-  )
+  );
 }
