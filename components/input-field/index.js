@@ -2,6 +2,7 @@ import { useController } from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Text } from "../text";
+import Select from "react-select";
 
 // Required Props for text field (input type)
 // 1. label
@@ -246,5 +247,71 @@ export const DateField = ({
         ) : null}
       </div>
     </div>
+  );
+};
+
+/** Required props for single select */
+// 1. label
+// 2. error
+// 3. name
+// 4. defaultValue
+// 5. placeholder
+// 6. control
+// 7. rules
+// 8. isSearchable
+
+export const SingleSelect = ({
+  error,
+  name,
+  defaultvalue,
+  placeholder,
+  control,
+  rules,
+  options,
+  borderRadius,
+  borderTopRightRadius,
+  borderBottomRightRadius,
+  borderTopLeftRadius,
+  borderBottomLeftRadius,
+}) => {
+  const {
+    field: { onChange, onBlur, value, ref },
+  } = useController({
+    name,
+    control,
+    rules: { ...rules },
+    defaultValue: defaultvalue,
+  });
+
+  return (
+    <Select
+      onChange={onChange} // send value to hook form
+      onBlur={onBlur} // notify when input is touched/blur
+      value={value} // input value
+      name={name} // send down the input name
+      inputRef={ref} // send input ref, so we can focus on input when error appear
+      selected={value}
+      isSearchable
+      placeholder={placeholder}
+      options={options}
+      components={{
+        DropdownIndicator: () => null,
+      }}
+      styles={{
+        control: (baseStyles, state) => ({
+          ...baseStyles,
+          border: 0,
+          height: "54px",
+          paddingLeft: "10px",
+          borderRadius: borderRadius || 0,
+          borderTopRightRadius: borderTopRightRadius || 0,
+          borderBottomRightRadius: borderBottomRightRadius || 0,
+          borderTopLeftRadius: borderTopLeftRadius || 0,
+          borderBottomLeftRadius: borderBottomLeftRadius || 0,
+          borderColor: state.isFocused ? "white" : "white",
+          boxShadow: "none",
+        }),
+      }}
+    />
   );
 };

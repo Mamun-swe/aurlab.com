@@ -17,7 +17,7 @@ export default function Home() {
       {/* Search */}
       <div className="container mx-auto">
         <div className="grid grid-cols-1">
-          <div className="w-full md:w-[550px] lg:w-[650px] mx-auto rounded-full drop-shadow-xl bg-white border border-gray-100 z-50">
+          <div className="w-full md:w-[550px] lg:w-[650px] mx-auto z-50">
             <SearchForm />
           </div>
         </div>

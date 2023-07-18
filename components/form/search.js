@@ -1,14 +1,13 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Search } from "react-feather";
-import { arraFromNumber } from "../../utils/helper";
-import Select from "react-tailwindcss-select";
+import { SingleSelect } from "../input-field";
 
 const yearOptions = () => {
   const years = [];
   for (let i = 0; i < 100; i++) {
     const item = 1980 + i;
-    years.push({ label: item.toString(), value: item });
+    years.push({ label: item, value: item });
   }
 
   return years;
@@ -16,36 +15,57 @@ const yearOptions = () => {
 
 export const SearchForm = () => {
   const history = useRouter();
-  const { register, handleSubmit } = useForm();
-
-  /** handle year selection */
-  const handleYearChange = (item) => {
-    console.log(item);
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
-    // history.push(`/researcher?query=${data.query}`);
-    console.log(data);
+    history.push(
+      `/researcher?year=${data.year.value}&category=${data.category.value}&query=${data.query}`
+    );
   };
 
   return (
-    <div>
+    <div
+      className={`rounded-full drop-shadow-xl bg-white border ${
+        errors.year || errors.query ? "border-red-400" : "border-gray-100"
+      }`}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex">
-          <div className="w-32">
-            <Select
-              isClearable
+          {/* Year selection */}
+          <div className="w-24">
+            <SingleSelect
+              name={"year"}
+              error={errors.year}
               isSearchable
               placeholder="Year"
-              searchInputPlaceholder="Search..."
               options={yearOptions()}
-              onChange={handleYearChange}
-              classNames={{
-                menu: "absolute z-10 w-full bg-white shadow-lg border rounded-xl py-1 mt-1.5 text-sm text-gray-700",
-                list: "roundex-xl",
-              }}
+              control={control}
+              rules={{ required: true }}
+              borderTopLeftRadius="50px"
+              borderBottomLeftRadius="50px"
             />
           </div>
+
+          {/* Category selection */}
+          <div className="w-36">
+            <SingleSelect
+              name={"category"}
+              error={errors.category}
+              isSearchable
+              placeholder="Category"
+              options={yearOptions()}
+              control={control}
+              rules={{ required: true }}
+              borderRadius={0}
+            />
+          </div>
+
+          {/* Query input */}
           <div className="grow">
             <input
               type="text"
