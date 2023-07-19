@@ -65,15 +65,8 @@ const edit = () => {
   const handleSubmit = async (data) => {
     try {
       setUpdating(true);
-      const formData = {
-        ...data,
-        category: data.category.value,
-        authors: data.authors.map((x) => {
-          return x.value;
-        }),
-      };
 
-      const response = await PublicationUpdate(id, formData);
+      const response = await PublicationUpdate(id, data);
       if (response && response.status === 201) {
         Toastify.Success(response?.data?.message);
       }
@@ -82,7 +75,6 @@ const edit = () => {
     } catch (error) {
       if (error) {
         setUpdating(false);
-
         if (
           error.response &&
           error.response.data &&

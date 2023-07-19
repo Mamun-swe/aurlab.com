@@ -88,6 +88,7 @@ const store = () => {
             ) : (
               <PublicationForm
                 data={null}
+                formType="store"
                 isLoading={creating}
                 categories={categories}
                 onSubmit={(value) => handleSubmit(value)}

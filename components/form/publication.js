@@ -19,7 +19,7 @@ export const PublicationForm = (props) => {
   const onSubmit = (data) => {
     const file = getValues("file");
 
-    if (!file) {
+    if (props.formType === "store" && !file) {
       return setError("file", {
         type: "manual",
         message: "Publication pdf file is required.",
@@ -189,7 +189,6 @@ export const PublicationForm = (props) => {
         )}
 
         <FileInput
-          error={true}
           onSelected={(value) => {
             setValue("file", value);
             clearErrors("file");
