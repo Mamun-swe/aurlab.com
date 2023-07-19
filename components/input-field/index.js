@@ -1,8 +1,10 @@
+import { useState } from "react";
+import { Text } from "../text";
 import { useController } from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Text } from "../text";
 import Select from "react-select";
+import { Images } from "../../utils/images";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Required Props for text field (input type)
 // 1. label
@@ -23,6 +25,7 @@ export const TextField = ({
   control,
   rules,
   icon,
+  type,
 }) => {
   const {
     field: { onChange, onBlur, value, ref },
@@ -49,7 +52,8 @@ export const TextField = ({
           name={name} // send down the input name
           inputRef={ref} // send input ref, so we can focus on input when error appear
           placeholder={placeholder}
-          type="text"
+          type={type || "text"}
+          min={0}
           className={
             error
               ? "w-full text-sm bg-gray-100 rounded-md outline-none p-3 border-red-400"
@@ -313,5 +317,40 @@ export const SingleSelect = ({
         }),
       }}
     />
+  );
+};
+
+/** Single file input  */
+export const FileInput = (props) => {
+  /* handle change */
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    props.onSelected(file);
+  };
+
+  return (
+    <div className="flex items-center space-x-6">
+      <div className="shrink-0">
+        <img
+          className="h-16 w-16 object-cover"
+          src={Images.PdfIcon}
+          alt="File input"
+        />
+      </div>
+      <label className="block">
+        <input
+          type="file"
+          accept="application/pdf"
+          className="block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-violet-700
+      hover:file:bg-violet-100
+    "
+          onChange={(event) => handleChange(event)}
+        />
+      </label>
+    </div>
   );
 };

@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { Search } from "react-feather";
 import { SingleSelect } from "../input-field";
+import { categoryList } from "../../pages/api";
+import { useCallback, useEffect, useState } from "react";
 
 const yearOptions = () => {
   const years = [];
@@ -15,6 +17,7 @@ const yearOptions = () => {
 
 export const SearchForm = () => {
   const history = useRouter();
+  const [data, setData] = useState([]);
   const {
     register,
     handleSubmit,
@@ -22,9 +25,36 @@ export const SearchForm = () => {
     formState: { errors },
   } = useForm();
 
+  /** fetch category list */
+  const fetchCategoryList = useCallback(async () => {
+    try {
+      const response = await categoryList();
+      if (response && response.status === 200) {
+        const items = [];
+        if (response.data && response.data.data && response.data.data.length) {
+          for (let i = 0; i < response.data.data.length; i++) {
+            const element = response.data.data[i];
+            items.push({
+              label: element.title,
+              value: element._id,
+            });
+          }
+        }
+
+        setData(items);
+      }
+    } catch (error) {
+      console.log(error?.response);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchCategoryList();
+  }, [fetchCategoryList]);
+
   const onSubmit = async (data) => {
     history.push(
-      `/researcher?year=${data.year.value}&category=${data.category.value}&query=${data.query}`
+      `/publications?year=${data.year.value}&category=${data.category.value}&query=${data.query}`
     );
   };
 
@@ -58,7 +88,7 @@ export const SearchForm = () => {
               error={errors.category}
               isSearchable
               placeholder="Category"
-              options={yearOptions()}
+              options={data}
               control={control}
               rules={{ required: true }}
               borderRadius={0}
